@@ -21,11 +21,14 @@
 
   <main>
     <section class="hero container reveal">
-      <h1>你好，我是<span class="gradient-text">你的名字</span></h1>
-      <p>一名专注于 Web 的开发者，热爱构建清晰、可靠、可维护的产品。</p>
-      <div class="cta">
-        <a class="button primary" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
-        <a class="button" href="#projects">查看项目</a>
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1>你好，我是<span class="gradient-text">你的名字</span></h1>
+        <p>一名专注于 Web 的开发者，热爱构建清晰、可靠、可维护的产品。</p>
+        <div class="cta">
+          <a class="button primary" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
+          <a class="button" href="#projects">查看项目</a>
+        </div>
       </div>
     </section>
 
@@ -43,16 +46,24 @@
 
     <section id="projects" class="section container reveal">
       <h2>项目</h2>
-      <div class="grid">
-        <article class="card">
+      <div class="hscroll" aria-label="项目画廊">
+        <article class="slide tilt">
+          <div class="tilt-shadow"></div>
           <h3>项目 A</h3>
-          <p>一句话简介。可以放上你的亮点与职责。</p>
-          <a href="https://github.com/你的GitHub用户名/你的项目A" target="_blank" rel="noopener">查看代码 </a>
+          <p>一句话简介。亮点与职责。</p>
+          <a href="https://github.com/你的GitHub用户名/你的项目A" target="_blank" rel="noopener">查看代码 →</a>
         </article>
-        <article class="card">
+        <article class="slide tilt">
+          <div class="tilt-shadow"></div>
           <h3>项目 B</h3>
-          <p>一句话简介。可以放上你的亮点与职责。</p>
-          <a href="https://github.com/你的GitHub用户名/你的项目B" target="_blank" rel="noopener">查看代码 </a>
+          <p>一句话简介。亮点与职责。</p>
+          <a href="https://github.com/你的GitHub用户名/你的项目B" target="_blank" rel="noopener">查看代码 →</a>
+        </article>
+        <article class="slide tilt">
+          <div class="tilt-shadow"></div>
+          <h3>项目 C</h3>
+          <p>一句话简介。亮点与职责。</p>
+          <a href="#" aria-disabled="true">即将开源</a>
         </article>
       </div>
     </section>

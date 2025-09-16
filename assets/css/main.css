@@ -87,6 +87,21 @@ html { scroll-behavior: smooth; }
   position: relative;
   isolation: isolate;
 }
+.hero-bg {
+  position: absolute;
+  inset: -20% -20% auto -20%;
+  height: 420px;
+  background: radial-gradient(60% 80% at 30% 40%, color-mix(in oklab, var(--gradient-2), transparent 30%), transparent 60%),
+              radial-gradient(50% 70% at 70% 60%, color-mix(in oklab, var(--gradient-1), transparent 30%), transparent 60%);
+  filter: blur(60px) saturate(120%);
+  opacity: .28;
+  z-index: -1;
+  transform: translate3d(0, 0, 0) scale(1.15);
+  will-change: transform;
+}
+.hero-content {
+  position: relative;
+}
 .hero::before {
   content: "";
   position: absolute;
@@ -214,3 +229,46 @@ html { scroll-behavior: smooth; }
   .card { transition: none; }
   .nav a::after { transition: none; }
 }
+
+/* Horizontal gallery with scroll snap */
+.hscroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+.hscroll::-webkit-scrollbar { display: none; }
+.slide {
+  flex: 0 0 82vw;
+  scroll-snap-align: start;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, color-mix(in oklab, var(--gradient-1), var(--surface) 60%), color-mix(in oklab, var(--gradient-2), var(--surface) 70%));
+  padding: 20px;
+  color: var(--text);
+  min-height: 220px;
+}
+.slide h3 { margin: 0 0 6px; }
+.slide p { margin: 0 0 10px; color: var(--muted); }
+
+@media (min-width: 960px) {
+  .slide { flex-basis: 560px; }
+}
+
+/* 3D tilt base */
+.tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt .tilt-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(40% 50% at 50% 10%, rgba(0,0,0,.15), transparent 60%);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.tilt:hover .tilt-shadow { opacity: 1; }

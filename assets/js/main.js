@@ -35,4 +35,33 @@
   } else {
     revealNodes.forEach(function (el) { el.classList.add('is-visible'); });
   }
+
+  // Parallax effect for hero background
+  var heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', function () {
+      var y = Math.max(0, window.pageYOffset || document.documentElement.scrollTop);
+      heroBg.style.transform = 'translate3d(0,' + (y * -0.08) + 'px,0) scale(1.15)';
+    }, { passive: true });
+  }
+
+  // 3D tilt on mouse move
+  var tilts = Array.prototype.slice.call(document.querySelectorAll('.tilt'));
+  tilts.forEach(function (card) {
+    var rect;
+    function onMove(e) {
+      rect = rect || card.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width;
+      var y = (e.clientY - rect.top) / rect.height;
+      var rx = (y - 0.5) * -10;
+      var ry = (x - 0.5) * 10;
+      card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    }
+    function onLeave() {
+      rect = null;
+      card.style.transform = '';
+    }
+    card.addEventListener('mousemove', onMove);
+    card.addEventListener('mouseleave', onLeave);
+  });
 })();
