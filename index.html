@@ -15,6 +15,7 @@
         <a href="#about">关于我</a>
         <a href="#projects">项目</a>
         <a href="#contact">联系</a>
+        <button id="themeToggle" class="button" style="margin-left:16px;">切换主题</button>
       </nav>
     </div>
   </header>
@@ -26,8 +27,8 @@
         <h1>你好，我是<span class="gradient-text">你的名字</span></h1>
         <p>一名专注于 Web 的开发者，热爱构建清晰、可靠、可维护的产品。</p>
         <div class="cta">
-          <a class="button primary" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
-          <a class="button" href="#projects">查看项目</a>
+          <a class="button primary magnet" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
+          <a class="button magnet" href="#projects">查看项目</a>
         </div>
       </div>
     </section>
@@ -68,6 +69,24 @@
       </div>
     </section>
 
+    <section id="features" class="section container reveal">
+      <h2>特性</h2>
+      <div class="glass-grid">
+        <article class="glass-card">
+          <h3>快速</h3>
+          <p>静态资源，极速加载与部署。</p>
+        </article>
+        <article class="glass-card">
+          <h3>美观</h3>
+          <p>现代视觉与流畅动效。</p>
+        </article>
+        <article class="glass-card">
+          <h3>可维护</h3>
+          <p>结构清晰，易于拓展功能。</p>
+        </article>
+      </div>
+    </section>
+
     <section id="contact" class="section container reveal">
       <h2>联系</h2>
       <p>欢迎通过邮箱联系我：</p>
@@ -85,6 +104,8 @@
       <span> <span id="year"></span> 你的名字. 保留所有权利。</span>
     </div>
   </footer>
+
+  <div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
 
   <script src="assets/js/main.js"></script>
 </body>

@@ -21,6 +21,24 @@
   }
 }
 
+/* Explicit theme overrides (manual toggle) */
+html.theme-dark {
+  --bg: #0b1020;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --primary: #60a5fa;
+  --surface: #111827;
+  --border: #1f2937;
+}
+html.theme-light {
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --surface: #f3f4f6;
+  --border: #e5e7eb;
+}
+
 * { box-sizing: border-box; }
 
 html, body {
@@ -46,6 +64,7 @@ html { scroll-behavior: smooth; }
   backdrop-filter: saturate(180%) blur(8px);
   background: color-mix(in oklab, var(--bg), transparent 15%);
   border-bottom: 1px solid var(--border);
+  z-index: 50;
 }
 
 .site-header .container {
@@ -129,6 +148,7 @@ html { scroll-behavior: smooth; }
 }
 
 .cta { margin-top: 16px; }
+.cta .button + .button { margin-left: 8px; }
 
 .section {
   padding: 48px 0;
@@ -272,3 +292,53 @@ html { scroll-behavior: smooth; }
   transition: opacity .2s ease;
 }
 .tilt:hover .tilt-shadow { opacity: 1; }
+
+/* Glassmorphism features */
+.glass-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.glass-card {
+  position: relative;
+  background: color-mix(in oklab, var(--surface), transparent 40%);
+  border: 1px solid color-mix(in oklab, var(--border), white 30%);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: var(--ring);
+}
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255,255,255,.12), transparent 40%);
+  pointer-events: none;
+}
+.glass-card h3 { margin: 0 0 6px; }
+.glass-card p { margin: 0; color: var(--muted); }
+
+/* Scroll progress bar */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  z-index: 100;
+}
+.progress__bar {
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+  box-shadow: 0 0 8px color-mix(in oklab, var(--gradient-2), transparent 60%);
+  transform-origin: left;
+}
+
+/* Magnetic button subtle scaling */
+.button.magnet:hover {
+  transform: translateY(-1px) scale(1.02);
+}

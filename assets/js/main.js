@@ -64,4 +64,54 @@
     card.addEventListener('mousemove', onMove);
     card.addEventListener('mouseleave', onLeave);
   });
+
+  // Scroll progress bar
+  var progress = document.getElementById('progressBar');
+  if (progress) {
+    var updateProgress = function () {
+      var st = document.documentElement.scrollTop || document.body.scrollTop;
+      var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var p = sh > 0 ? (st / sh) * 100 : 0;
+      progress.style.width = p + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  }
+
+  // Theme toggle with persistence
+  var toggle = document.getElementById('themeToggle');
+  var root = document.documentElement;
+  function applyTheme(t) {
+    root.classList.remove('theme-light', 'theme-dark');
+    if (t === 'dark') root.classList.add('theme-dark');
+    if (t === 'light') root.classList.add('theme-light');
+  }
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved) applyTheme(saved);
+  } catch (e) { /* ignore */ }
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var cur = root.classList.contains('theme-dark') ? 'dark' : (root.classList.contains('theme-light') ? 'light' : null);
+      var next = cur === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('theme', next); } catch (e) { /* ignore */ }
+    });
+  }
+
+  // Magnetic buttons (subtle cursor follow)
+  var magnets = Array.prototype.slice.call(document.querySelectorAll('.magnet'));
+  magnets.forEach(function (btn) {
+    var r;
+    function move(e) {
+      r = r || btn.getBoundingClientRect();
+      var x = e.clientX - (r.left + r.width / 2);
+      var y = e.clientY - (r.top + r.height / 2);
+      btn.style.transform = 'translate(' + x * 0.08 + 'px,' + y * 0.08 + 'px)';
+    }
+    function leave() { r = null; btn.style.transform = ''; }
+    btn.addEventListener('mousemove', move);
+    btn.addEventListener('mouseleave', leave);
+  });
 })();
