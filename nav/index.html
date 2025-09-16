@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>导航</title>
+  <meta name="description" content="站内独立的导航页面，静态渲染 NavSphere 内容。">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .navshell { display: grid; grid-template-columns: 280px 1fr; gap: 16px; }
+    @media (max-width: 880px){ .navshell { grid-template-columns: 1fr; } }
+    .sidebar { position: sticky; top: 72px; align-self: start; border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface); }
+    .navlist { list-style: none; padding: 0; margin: 0; }
+    .navlist a { display: block; padding: 8px 10px; border-radius: 8px; color: var(--text); text-decoration: none; }
+    .navlist a:hover { background: color-mix(in oklab, var(--surface), white 10%); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .cardx { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: var(--surface); }
+    .cardx h4 { margin: 0 0 6px; font-size: 16px; }
+    .cardx p { margin: 0; color: var(--muted); font-size: 13px; }
+    .section-title { margin: 24px 0 12px; }
+    .logo { width: 20px; height: 20px; vertical-align: -4px; margin-right: 6px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="brand gradient-text"><a href="/" style="text-decoration:none;color:inherit;">你的名字</a></div>
+      <nav class="nav">
+        <a href="/">首页</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero reveal">
+      <div class="hero-content">
+        <h1>导航</h1>
+        <p id="subdesc">加载站点配置…</p>
+      </div>
+    </section>
+
+    <div class="navshell">
+      <aside class="sidebar">
+        <ul class="navlist" id="side"></ul>
+      </aside>
+      <section id="content"></section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© <span id="year"></span> 你的名字. 保留所有权利。</span>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var y = document.getElementById('year'); if (y) y.textContent = String(new Date().getFullYear());
+      var base = '../external/NavSphere';
+      var siteUrl = base + '/navsphere/content/site.json';
+      var navUrl = base + '/navsphere/content/navigation.json';
+      var sideEl = document.getElementById('side');
+      var contentEl = document.getElementById('content');
+      var subdesc = document.getElementById('subdesc');
+
+      function el(tag, attrs, children){
+        var e = document.createElement(tag);
+        if (attrs) Object.keys(attrs).forEach(function(k){ if (k === 'class') e.className = attrs[k]; else if (k === 'html') e.innerHTML = attrs[k]; else e.setAttribute(k, attrs[k]); });
+        (children || []).forEach(function(c){ e.appendChild(c); });
+        return e;
+      }
+
+      function render(nav){
+        sideEl.innerHTML = '';
+        contentEl.innerHTML = '';
+        (nav.navigationItems || []).forEach(function(section){
+          var anchor = 'sec-' + (section.id || Math.random().toString(36).slice(2));
+          sideEl.appendChild(el('li', null, [ el('a', { href: '#' + anchor }, [ document.createTextNode(section.title || '未命名') ]) ]));
+
+          var sec = el('section', { id: anchor });
+          sec.appendChild(el('h2', { class: 'section-title' }, [ document.createTextNode(section.title || '') ]));
+
+          if ((section.items || []).length){
+            var grid = el('div', { class: 'cards' });
+            section.items.forEach(function(item){
+              if (item.enabled === false) return;
+              var link = el('a', { href: item.href || '#', target: '_blank', rel: 'noopener' }, [
+                el('strong', null, [ item.icon ? el('img', { src: '../external/NavSphere/public' + (item.icon.startsWith('/')? item.icon : '/' + item.icon), alt: '', class: 'logo' }) : document.createTextNode('') , document.createTextNode(item.title || '') ])
+              ]);
+              var p = el('p', null, [ document.createTextNode((item.description || '').replace(/\n+/g,' ')) ]);
+              var card = el('div', { class: 'cardx' }, [ el('h4', null, [link]), p ]);
+              grid.appendChild(card);
+            });
+            sec.appendChild(grid);
+          }
+
+          (section.subCategories || []).forEach(function(cat){
+            var h3 = el('h3', { class: 'section-title' }, [ document.createTextNode(cat.title || '') ]);
+            sec.appendChild(h3);
+            var grid2 = el('div', { class: 'cards' });
+            (cat.items || []).forEach(function(item){
+              if (item.enabled === false) return;
+              var link = el('a', { href: item.href || '#', target: '_blank', rel: 'noopener' }, [
+                el('strong', null, [ item.icon ? el('img', { src: '../external/NavSphere/public' + (item.icon.startsWith('/')? item.icon : '/' + item.icon), alt: '', class: 'logo' }) : document.createTextNode('') , document.createTextNode(item.title || '') ])
+              ]);
+              var p = el('p', null, [ document.createTextNode((item.description || '').replace(/\n+/g,' ')) ]);
+              grid2.appendChild(el('div', { class: 'cardx' }, [ el('h4', null, [link]), p ]));
+            });
+            sec.appendChild(grid2);
+          });
+
+          contentEl.appendChild(sec);
+        });
+      }
+
+      fetch(siteUrl).then(function(r){ return r.json(); }).then(function(s){
+        if (s && s.basic && s.basic.description && subdesc) subdesc.textContent = s.basic.description;
+      }).catch(function(){ /* ignore */ });
+
+      fetch(navUrl).then(function(r){ return r.json(); }).then(render).catch(function(err){
+        contentEl.innerHTML = '<p style="color:var(--muted)">无法加载导航数据：' + err.message + '</p>';
+      });
+    })();
+  </script>
+</body>
+</html>
+
