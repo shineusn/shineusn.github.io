@@ -1,0 +1,3 @@
+[submodule "external/NavSphere"]
+	path = external/NavSphere
+	url = https://github.com/tianyaxiang/NavSphere
