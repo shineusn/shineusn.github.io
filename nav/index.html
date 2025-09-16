@@ -13,12 +13,15 @@
     .navlist { list-style: none; padding: 0; margin: 0; }
     .navlist a { display: block; padding: 8px 10px; border-radius: 8px; color: var(--text); text-decoration: none; }
     .navlist a:hover { background: color-mix(in oklab, var(--surface), white 10%); }
-    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
-    .cardx { border: 1px solid var(--border); border-radius: 12px; padding: 14px; background: var(--surface); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .cardx { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: var(--surface); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .cardx:hover { transform: translateY(-4px); border-color: color-mix(in oklab, var(--primary), var(--border) 60%); box-shadow: var(--ring); }
     .cardx h4 { margin: 0 0 6px; font-size: 16px; }
     .cardx p { margin: 0; color: var(--muted); font-size: 13px; }
     .section-title { margin: 24px 0 12px; }
     .logo { width: 20px; height: 20px; vertical-align: -4px; margin-right: 6px; }
+    .hero { padding: 88px 0 32px; position: relative; isolation: isolate; }
+    .hero::before { content:""; position:absolute; inset:-20% -20% auto -20%; height:300px; background: radial-gradient(60% 80% at 30% 40%, color-mix(in oklab, var(--gradient-2), transparent 30%), transparent 60%), radial-gradient(50% 70% at 70% 60%, color-mix(in oklab, var(--gradient-1), transparent 30%), transparent 60%); filter: blur(60px) saturate(120%); opacity:.22; z-index:-1; }
   </style>
 </head>
 <body>
@@ -27,6 +30,7 @@
       <div class="brand gradient-text"><a href="/" style="text-decoration:none;color:inherit;">你的名字</a></div>
       <nav class="nav">
         <a href="/">首页</a>
+        <button id="themeToggle" class="button" style="margin-left:16px;">切换主题</button>
       </nav>
     </div>
   </header>
@@ -43,7 +47,7 @@
       <aside class="sidebar">
         <ul class="navlist" id="side"></ul>
       </aside>
-      <section id="content"></section>
+      <section id="content" class="reveal"></section>
     </div>
   </main>
 
@@ -52,6 +56,8 @@
       <span>© <span id="year"></span> 你的名字. 保留所有权利。</span>
     </div>
   </footer>
+
+  <div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
 
   <script>
     (function(){
@@ -120,6 +126,28 @@
       fetch(navUrl).then(function(r){ return r.json(); }).then(render).catch(function(err){
         contentEl.innerHTML = '<p style="color:var(--muted)">无法加载导航数据：' + err.message + '</p>';
       });
+
+      // 主题切换保持一致
+      var root = document.documentElement;
+      function applyTheme(t) { root.classList.remove('theme-light','theme-dark'); if (t==='dark') root.classList.add('theme-dark'); if (t==='light') root.classList.add('theme-light'); }
+      try { var saved = localStorage.getItem('theme'); if (saved) applyTheme(saved); } catch(e){}
+      var toggle = document.getElementById('themeToggle');
+      if (toggle) toggle.addEventListener('click', function(){
+        var cur = root.classList.contains('theme-dark') ? 'dark' : (root.classList.contains('theme-light') ? 'light' : null);
+        var next = cur === 'dark' ? 'light' : 'dark';
+        applyTheme(next); try { localStorage.setItem('theme', next); } catch(e){}
+      });
+
+      // 滚动进度条
+      var progress = document.getElementById('progressBar');
+      if (progress) {
+        var updateProgress = function () {
+          var st = document.documentElement.scrollTop || document.body.scrollTop;
+          var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var p = sh > 0 ? (st / sh) * 100 : 0; progress.style.width = p + '%'; };
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress); updateProgress();
+      }
     })();
   </script>
 </body>
