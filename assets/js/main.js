@@ -19,4 +19,20 @@
       }
     });
   });
+
+  // Reveal on scroll (progressive enhancement)
+  var revealNodes = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    revealNodes.forEach(function (el) { io.observe(el); });
+  } else {
+    revealNodes.forEach(function (el) { el.classList.add('is-visible'); });
+  }
 })();
