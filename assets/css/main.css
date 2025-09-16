@@ -1,0 +1,146 @@
+:root {
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --surface: #f3f4f6;
+  --border: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1020;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --primary: #60a5fa;
+    --surface: #111827;
+    --border: #1f2937;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(180%) blur(8px);
+  background: color-mix(in oklab, var(--bg), transparent 15%);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.nav a {
+  color: var(--text);
+  text-decoration: none;
+  margin-left: 16px;
+}
+
+.nav a:hover { color: var(--primary); }
+
+.hero {
+  padding: 64px 0 32px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  margin: 0 0 8px;
+}
+
+.accent { color: var(--primary); }
+
+.cta { margin-top: 16px; }
+
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+}
+
+.tags {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tags li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform .05s ease, background .2s ease, border-color .2s ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary);
+}
+
+.button.primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 0 48px;
+  color: var(--muted);
+  font-size: 14px;
+}
