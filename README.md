@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+# shineusn.github.io
 
-You can use the [editor on GitHub](https://github.com/shineusn/shineusn.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+这是我的 GitHub Pages 个人网站源码仓库。站点使用纯静态文件构建，并通过 GitHub Actions 自动部署到 Pages。
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## 访问地址
+- https://shineusn.github.io/
 
-### Markdown
+## 本地开发
+- 直接双击 `index.html` 预览，或使用任意静态服务器（如 VS Code Live Server）。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## 部署
+- 推送到 `main` 分支后，Actions 会自动构建并发布。
 
-```markdown
-Syntax highlighted code block
+## 自定义域名（可选）
+1. 在仓库根目录添加 `CNAME`，内容为你的域名（如 `example.com`）。
+2. 在 DNS 添加 A 记录到 185.199.108.153/154/155/156（IPv4），可选 AAAA 到 2606:50c0:8000::153/154/155/156。
+3. 推送后在 Settings  Pages 勾选 Enforce HTTPS。
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/shineusn/shineusn.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
