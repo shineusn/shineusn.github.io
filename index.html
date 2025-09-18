@@ -10,7 +10,7 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <div class="brand gradient-text">你的名字</div>
+      <div class="brand gradient-text"><a href="/" style="text-decoration:none;color:inherit;">你的名字</a></div>
       <nav class="nav">
         <a href="#about">关于我</a>
         <a href="#projects">项目</a>
@@ -24,12 +24,22 @@
   <main>
     <section class="hero container reveal">
       <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-content">
-        <h1>你好，我是<span class="gradient-text">你的名字</span></h1>
-        <p>一名专注于 Web 的开发者，热爱构建清晰、可靠、可维护的产品。</p>
-        <div class="cta">
-          <a class="button primary magnet" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
-          <a class="button magnet" href="#projects">查看项目</a>
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1>构建现代的<span class="gradient-text">Web 体验</span></h1>
+          <p class="hero-subtext">专注于高性能、易维护与优雅交互的前端开发。</p>
+          <div class="chips" role="list" aria-label="特点">
+            <span class="chip" role="listitem">去中心化</span>
+            <span class="chip" role="listitem">高性能</span>
+            <span class="chip" role="listitem">开放生态</span>
+          </div>
+          <div class="cta">
+            <a class="button gradient pill magnet" href="https://github.com/你的GitHub用户名" target="_blank" rel="noopener">GitHub</a>
+            <a class="button pill magnet outlined" href="#projects">查看项目</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orb"></div>
         </div>
       </div>
     </section>
@@ -48,6 +58,7 @@
 
     <section id="projects" class="section container reveal">
       <h2>项目</h2>
+      <p class="muted">精挑细选的实践案例与开源作品。</p>
       <div class="hscroll" aria-label="项目画廊">
         <article class="slide tilt">
           <div class="tilt-shadow"></div>

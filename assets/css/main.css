@@ -106,6 +106,16 @@ html { scroll-behavior: smooth; }
   position: relative;
   isolation: isolate;
 }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  align-items: center;
+}
+@media (max-width: 920px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; height: 260px; }
+}
 .hero-bg {
   position: absolute;
   inset: -20% -20% auto -20%;
@@ -120,6 +130,19 @@ html { scroll-behavior: smooth; }
 }
 .hero-content {
   position: relative;
+}
+.hero-subtext { color: var(--muted); margin: 8px 0 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface), transparent 20%);
+  color: var(--muted);
+  font-size: 13px;
 }
 .hero::before {
   content: "";
@@ -147,6 +170,33 @@ html { scroll-behavior: smooth; }
   color: transparent;
 }
 
+.pill { border-radius: 999px; padding: 10px 16px; }
+.button.gradient {
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+  color: #fff;
+  border-color: transparent;
+}
+.button.outlined {
+  background: transparent;
+  border-color: color-mix(in oklab, var(--primary), var(--border) 70%);
+}
+
+.hero-visual {
+  position: relative;
+  height: 340px;
+}
+.hero-visual .orb {
+  position: absolute;
+  inset: 10% 10% 10% 10%;
+  border-radius: 24px;
+  background:
+    radial-gradient(60% 80% at 30% 40%, color-mix(in oklab, var(--gradient-2), transparent 20%), transparent 60%),
+    radial-gradient(50% 70% at 70% 60%, color-mix(in oklab, var(--gradient-1), transparent 15%), transparent 60%),
+    linear-gradient(180deg, color-mix(in oklab, var(--surface), white 4%), color-mix(in oklab, var(--surface), transparent 60%));
+  filter: saturate(140%);
+  box-shadow: 0 0 0 1px var(--border), var(--ring);
+}
+
 .cta { margin-top: 16px; }
 .cta .button + .button { margin-left: 8px; }
 
@@ -154,6 +204,7 @@ html { scroll-behavior: smooth; }
   padding: 48px 0;
   border-top: 1px solid var(--border);
 }
+.section .muted { color: var(--muted); margin-top: -8px; margin-bottom: 12px; }
 
 .tags {
   list-style: none;
